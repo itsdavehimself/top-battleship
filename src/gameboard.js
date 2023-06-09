@@ -1,4 +1,3 @@
-import { check } from "prettier";
 import Ship from "./ship-factory";
 import Cell from "./cell";
 
