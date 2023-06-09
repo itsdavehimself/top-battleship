@@ -1,6 +1,7 @@
-function Ship(shipLength) {
+function Ship(shipLength, shipType) {
   const ship = {
     shipLength,
+    shipType,
     hits: 0,
     sunk: false,
     hit() {
