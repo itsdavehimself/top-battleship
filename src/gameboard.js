@@ -6,6 +6,9 @@ function Gameboard() {
   const columns = 10;
   const board = [];
   const placedShips = [];
+  const movesMade = [];
+  const successfulHits = [];
+  const missedShots = [];
 
   const makeBoard = () => {
     for (let i = 0; i < rows; i += 1) {
@@ -51,7 +54,23 @@ function Gameboard() {
       placedShips.push(newShip);
     }
 
-  return { getBoard, placeShip }
+  const receiveAttack = (coordinates) => {
+    if (!movesMade.find(moves => moves.toString() === coordinates.toString())) {
+      if (board[coordinates[0]][coordinates[1]].getValue() !== 0) {
+        const shipType = board[coordinates[0]][coordinates[1]].getValue()
+        const hitShip = placedShips.find(ship => ship.shipType === shipType)
+        hitShip.hit();
+        movesMade.push(coordinates);
+        successfulHits.push(coordinates);
+      } else {
+        movesMade.push(coordinates);
+        missedShots.push(coordinates);
+      };
+    }
+
+  }
+
+  return { getBoard, placeShip, receiveAttack }
 }
 
 export default Gameboard;
