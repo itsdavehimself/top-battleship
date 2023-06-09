@@ -1,3 +1,4 @@
+import { check } from "prettier";
 import Ship from "./ship-factory";
 import Cell from "./cell";
 
@@ -22,6 +23,18 @@ function Gameboard() {
   makeBoard();
 
   const getBoard = () => board;
+
+  const checkIfAllSunk = () => {
+    let allSunk = false;
+    for (let i = 0; i < placedShips.length; i += 1) {
+      if (placedShips[i].sunk === false) {
+        allSunk = false;
+      } else {
+        allSunk = true;
+      }
+    }
+    return allSunk
+  }
 
   const placeShip = (startPos, direction, length, shipType) => {
     let validMove = true;
@@ -62,6 +75,7 @@ function Gameboard() {
         hitShip.hit();
         movesMade.push(coordinates);
         successfulHits.push(coordinates);
+        checkIfAllSunk();
       } else {
         movesMade.push(coordinates);
         missedShots.push(coordinates);
