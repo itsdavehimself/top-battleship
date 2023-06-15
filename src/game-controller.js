@@ -7,7 +7,7 @@ function Game() {
   const cpu = Player('CPU', true);
   const userBoard = Gameboard();
   const cpuBoard = Gameboard();
-  const isGameOver = false;
+  let isGameOver = false;
   const isCtrlPressed = false;
 
   
@@ -95,6 +95,16 @@ function Game() {
       CPUDiv.forEach(div => div.addEventListener('click', () => clickHandler(div)));
     });
   }
+
+  async function gameTurn() {
+    const userInput = await getUserMove();
+    user.takeTurn(cpuBoard, userInput);
+    cpu.takeTurn(userBoard)
+    if (cpuBoard.reportSunk() || userBoard.reportSunk()) {
+      isGameOver = true;
+    }
+  }
+
 }
 
 export default Game;
