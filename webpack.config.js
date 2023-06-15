@@ -20,10 +20,6 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
-    ],
-  },
-  module: {
-    rules: [
       {
         test: /\.(?:js|mjs|cjs)$/,
         exclude: /node_modules/,
@@ -36,6 +32,6 @@ module.exports = {
           }
         }
       }
-    ]
+    ],
   },
 };
