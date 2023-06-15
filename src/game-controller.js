@@ -8,7 +8,7 @@ function Game() {
   const userBoard = Gameboard();
   const cpuBoard = Gameboard();
   let isGameOver = false;
-  const isCtrlPressed = false;
+  let isCtrlPressed = false;
 
   
   const updateBoard = () => {
@@ -103,6 +103,86 @@ function Game() {
     if (cpuBoard.reportSunk() || userBoard.reportSunk()) {
       isGameOver = true;
     }
+  }
+
+  function userShipCoordinates() {
+    return new Promise(resolve => {
+      const UserDiv = document.querySelectorAll('.user-board-button');
+      const clickHandler = (div) => {
+        resolve([Number(div.dataset.cellRow), Number(div.dataset.cellColumn)]);
+        div.removeEventListener('click', clickHandler);
+      };
+      UserDiv.forEach(div => div.addEventListener('click', () => clickHandler(div)));
+      const handleKeyDown = (event) => {
+        if (event.key === "Control") {
+          isCtrlPressed = true;
+        }
+      };
+      
+      const handleKeyUp = (event) => {
+        if (event.key === "Control") {
+          isCtrlPressed = false;
+        }
+      };
+      
+      window.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("keyup", handleKeyUp);
+    });
+  }
+
+  async function userCarrierPlacer() {
+    const userCarrierPosition = await userShipCoordinates();
+    const orientation = isCtrlPressed ? "horizontal" : "vertical";
+    const userCarrier = userBoard.placeShip(userCarrierPosition, orientation, 5, 1);
+    if (userCarrier === null) {
+      return userCarrierPlacer();
+    }
+    shipPlacementBoard(4, isCtrlPressed);
+    return true;
+  }
+
+  async function userBattleshipPlacer() {
+    const userCarrierPosition = await userShipCoordinates();
+    const orientation = isCtrlPressed ? "horizontal" : "vertical";
+    const userCarrier = userBoard.placeShip(userCarrierPosition, orientation, 4, 2);
+    if (userCarrier === null) {
+      return userBattleshipPlacer();
+    }
+    shipPlacementBoard(3, isCtrlPressed);
+    return true;
+  }
+
+  async function userDestroyerPlacer() {
+    const userCarrierPosition = await userShipCoordinates();
+    const orientation = isCtrlPressed ? "horizontal" : "vertical";
+    const userCarrier = userBoard.placeShip(userCarrierPosition, orientation, 3, 3);
+    if (userCarrier === null) {
+      return userDestroyerPlacer();
+    }
+    shipPlacementBoard(3, isCtrlPressed);
+    return true;
+  }
+
+  async function userSubmarinePlacer() {
+    const userCarrierPosition = await userShipCoordinates();
+    const orientation = isCtrlPressed ? "horizontal" : "vertical";
+    const userCarrier = userBoard.placeShip(userCarrierPosition, orientation, 3, 4);
+    if (userCarrier === null) {
+      return userSubmarinePlacer();
+    }
+    shipPlacementBoard(2, isCtrlPressed);
+    return true;
+  }
+
+  async function userPatrolBoatPlacer() {
+    const userCarrierPosition = await userShipCoordinates();
+    const orientation = isCtrlPressed ? "horizontal" : "vertical";
+    const userCarrier = userBoard.placeShip(userCarrierPosition, orientation, 2, 5);
+    if (userCarrier === null) {
+      return userPatrolBoatPlacer();
+    }
+    updateBoard();
+    return true;
   }
 
 }
