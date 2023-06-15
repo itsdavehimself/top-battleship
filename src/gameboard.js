@@ -34,9 +34,9 @@ function Gameboard() {
     let validMove = true;
     if (direction === 'vertical') {
       for (let i = 0; i < length; i += 1) {
-        if (board[startPos[0] + i][startPos[1]].getValue() !== 0) {
+        if (startPos[0] + i > 9 || board[startPos[0] + i][startPos[1]].getValue() !== 0) {
           validMove = false;
-          return;
+          return null;
           }
         }
       for (let i = 0; i < length; i += 1) {
@@ -46,9 +46,9 @@ function Gameboard() {
       }
       } else {
       for (let i = 0; i < length; i += 1) {
-        if (board[startPos[0]][startPos[1] + i].getValue() !== 0) {
+        if (board[startPos[0]][startPos[1] + i] === undefined || board[startPos[0]][startPos[1] + i].getValue() !== 0) {
           validMove = false;
-          return;
+          return null;
           }
         }
       for (let i = 0; i < length; i += 1) {
@@ -59,6 +59,7 @@ function Gameboard() {
       }
       const newShip = Ship(length, shipType);
       placedShips.push(newShip);
+      return newShip
     }
 
   const receiveAttack = (coordinates) => {
@@ -75,7 +76,7 @@ function Gameboard() {
     }
   }
 
-  return { getBoard, placeShip, receiveAttack }
+  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade }
 }
 
 export default Gameboard;
