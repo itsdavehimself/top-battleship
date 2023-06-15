@@ -185,6 +185,28 @@ function Game() {
     return true;
   }
 
+  const runGame = async () => {
+    while(!isGameOver) {
+      await gameTurn();
+    }
+    console.log('game over');
+  }
+
+  async function placeShipPhase() {
+    const isUserCarrier = await userCarrierPlacer();
+    const isUserBattleship = await userBattleshipPlacer();
+    const isUserDestroyer = await userDestroyerPlacer();
+    const isUserSubmarine = await userSubmarinePlacer();
+    const isUserPatrolBoat = await userPatrolBoatPlacer();
+    if (isUserCarrier && isUserBattleship && isUserDestroyer && isUserSubmarine && isUserPatrolBoat) {
+      cpuShipPlacer();
+      runGame();
+    }
+  }
+
+  shipPlacementBoard(5, isCtrlPressed);
+
+  return { placeShipPhase }
 }
 
 export default Game;
