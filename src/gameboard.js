@@ -7,6 +7,8 @@ function Gameboard() {
   const board = [];
   const placedShips = [];
   const movesMade = [];
+  const successfulHits = [];
+  const missedShots = [];
   let allSunk = false;
 
   const makeBoard = () => {
@@ -69,9 +71,11 @@ function Gameboard() {
         const hitShip = placedShips.find(ship => ship.shipType === shipType)
         hitShip.hit();
         movesMade.push(coordinates);
+        successfulHits.push(coordinates);
         checkIfAllSunk();
       } else {
         movesMade.push(coordinates);
+        missedShots.push(coordinates);
       };
     }
   }
