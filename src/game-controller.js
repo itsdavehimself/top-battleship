@@ -1,6 +1,6 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
-import { renderBoards, clearBoard } from "./DOM-gameboards";
+import { renderBoards, clearBoard, placementBoardRender } from "./DOM-gameboards";
 
 function Game() {
   const user = Player('Player One', false);
@@ -14,6 +14,11 @@ function Game() {
   const updateBoard = () => {
     clearBoard();
     renderBoards(userBoard, cpuBoard);
+  }
+
+  const shipPlacementBoard = (length, orientation) => {
+    clearBoard();
+    placementBoardRender(userBoard, cpuBoard, length, orientation)
   }
 
   const cpuShipPlacer = () => {
@@ -78,7 +83,18 @@ function Game() {
     placeCPUPatrolBoat();
     updateBoard();
   }
- 
+  
+  function getUserMove() {
+    return new Promise(resolve => {
+      const CPUDiv = document.querySelectorAll('.cpu-board-button');
+      const clickHandler = (div) => {
+        resolve([Number(div.dataset.cellRow), Number(div.dataset.cellColumn)]);
+        div.disabled = true;
+        div.removeEventListener('click', clickHandler);
+      };
+      CPUDiv.forEach(div => div.addEventListener('click', () => clickHandler(div)));
+    });
+  }
 }
 
 export default Game;
