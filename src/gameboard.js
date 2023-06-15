@@ -7,8 +7,7 @@ function Gameboard() {
   const board = [];
   const placedShips = [];
   const movesMade = [];
-  const successfulHits = [];
-  const missedShots = [];
+  let allSunk = false;
 
   const makeBoard = () => {
     for (let i = 0; i < rows; i += 1) {
@@ -24,16 +23,12 @@ function Gameboard() {
   const getBoard = () => board;
 
   const checkIfAllSunk = () => {
-    let allSunk = false;
-    for (let i = 0; i < placedShips.length; i += 1) {
-      if (placedShips[i].sunk === false) {
-        allSunk = false;
-      } else {
-        allSunk = true;
-      }
+    if (placedShips.every(obj => obj.sunk === true)) {
+      allSunk = true;
     }
-    return allSunk
   }
+
+  const reportSunk = () => allSunk
 
   const placeShip = (startPos, direction, length, shipType) => {
     let validMove = true;
@@ -73,14 +68,11 @@ function Gameboard() {
         const hitShip = placedShips.find(ship => ship.shipType === shipType)
         hitShip.hit();
         movesMade.push(coordinates);
-        successfulHits.push(coordinates);
         checkIfAllSunk();
       } else {
         movesMade.push(coordinates);
-        missedShots.push(coordinates);
       };
     }
-
   }
 
   return { getBoard, placeShip, receiveAttack }
