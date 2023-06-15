@@ -34,4 +34,9 @@ function renderBoards(userBoard, cpuBoard) {
   })
 };
 
-export default renderBoards
+function clearBoard() {
+  userDiv.replaceChildren();
+  CPUDiv.replaceChildren();
+};
+
+export { renderBoards, clearBoard }
