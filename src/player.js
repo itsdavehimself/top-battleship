@@ -1,3 +1,5 @@
+import { hitOrMiss } from "./DOM-gameboards";
+
 function Player(name, isCPU) {
   const comparePreviousMove = (arr, coordinates) => {
     for (let i = 0; i < arr.length; i += 1) {
@@ -25,8 +27,10 @@ function Player(name, isCPU) {
       if (isCPU) {
         const CPUCoordinates = getRandomCoordinates(enemyGameboard)
         enemyGameboard.receiveAttack(CPUCoordinates)
+        hitOrMiss(CPUCoordinates[0], CPUCoordinates[1], isCPU)
       } else {
         enemyGameboard.receiveAttack(coordinates)
+        hitOrMiss(coordinates[0], coordinates[1])
       }
     }
   }
