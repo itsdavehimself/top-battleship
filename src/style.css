@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.user-board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  height: 500px;
+  width: 500px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  height: 500px;
+  width: 500px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-board-button {
+  height: 40px;
+  width: 40px;
+  border: none;
+}
+
+.cpu-board-button {
+  height: 40px;
+  width: 40px;
+  border: none;
+}
+
+.user-placed-ship {
+  background-color: blue;
+}
+
+.hit {
+  background-color: #e40000;
+}
+
+.miss {
+  background-color: black;
+}
+
+.cpu-board-button:hover {
+  cursor: crosshair;
+  background-color: darkgray;
+}
+
+.hit:hover {
+  cursor: not-allowed;
+  background-color: #e40000;
+}
+
+.miss:hover {
+  cursor: not-allowed;
+  background-color: black;
+}
+
+.ship-placement {
+  background-color: aquamarine;
+}
+
+.ship-placement:hover{
+  cursor: pointer;
+}
