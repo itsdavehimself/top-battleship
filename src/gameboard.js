@@ -22,6 +22,15 @@ function Gameboard() {
 
   makeBoard();
 
+  const reset = () => {
+    placedShips.length = 0;
+    movesMade.length = 0;
+    successfulHits.length = 0;
+    missedShots.length = 0;
+    allSunk = false;
+    makeBoard();
+  };
+
   const getBoard = () => board;
 
   const checkIfAllSunk = () => {
@@ -82,7 +91,7 @@ function Gameboard() {
       return undefined
     };
 
-  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade, placedShips }
+  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade, placedShips, reset}
 }
 
 export default Gameboard;
