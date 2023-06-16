@@ -7,9 +7,101 @@
   <title>TOP: Battleship</title>
 </head>
 <body>
-  <div class="game-container">
-    <div class="user-board"></div>
-    <div class="cpu-board"></div>
+  <div class="main-container">
+    <div class="info-container">
+      <div class="title">
+        <h1>Battleship</h1>
+      </div>
+      <div class="instructions">
+        <div class="place-ship-info">
+        </div>
+        <div class="ctrl-info">
+        </div>
+        <div class="play-again"></div>
+      </div>
+    </div>
+    <div class="game-container">
+      <div class="user-container">
+        <div class="ships-remaining">
+          <div class="remaining-header">Your ships:</div>
+          <div class="remaining-icons">
+            <div class="user-carrier-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="user-battleship-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="user-destroyer-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="user-submarine-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="user-patrol-boat-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+          </div>
+        </div>
+        <div class="user-title-and-board">
+          <div class="fleet-title" id="user">
+            <p>Your Fleet</p>
+          </div>
+          <div class="user-board"></div>
+        </div>
+      </div>
+      <div class="cpu-container">
+        <div class="cpu-title-and-board">
+          <div class="fleet-title" id="cpu">
+            <p>Enemy Fleet</p>
+          </div>
+          <div class="cpu-board"></div>
+        </div>
+        <div class="ships-remaining" id="cpu-remaining">
+          <div class="remaining-header">CPU ships:</div>
+          <div class="remaining-icons">
+            <div class="cpu-carrier-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="cpu-battleship-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="cpu-destroyer-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="cpu-submarine-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+            <div class="cpu-patrol-boat-container">
+              <div class="user-ship"></div>
+              <div class="user-ship"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="main.js"></script>
 </body>
