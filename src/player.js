@@ -58,29 +58,136 @@ function Player(name, isCPU) {
 
   }
 
+  function tryVertical(enemyGameboard, firstCoordinate, secondCoordinate) {
+    const y = firstCoordinate[1];
+    const smallerX = Math.min(firstCoordinate[0], secondCoordinate[0]);
+    const largerX = Math.max(firstCoordinate[0], secondCoordinate[0]);
+    const possibleNextMoves = [];
+
+    if (smallerX > 0) {
+      const upCoordinate = [smallerX - 1, y];
+      console.log(`up ${upCoordinate}`)
+      if(!comparePreviousMove(enemyGameboard.movesMade, upCoordinate)) {
+        possibleNextMoves.push(upCoordinate);
+      }
+    }
+    
+    if (largerX < 9) {
+      const downCoordinate = [largerX + 1, y];
+      console.log(`down ${downCoordinate}`)
+      if(!comparePreviousMove(enemyGameboard.movesMade, downCoordinate)) {
+        possibleNextMoves.push(downCoordinate);
+      }
+    }
+    
+    return possibleNextMoves;
+  }
+
+  function tryHorizontal(enemyGameboard, firstCoordinate, secondCoordinate) {
+    const x = firstCoordinate[0];
+    const smallerY = Math.min(firstCoordinate[1], secondCoordinate[1]);
+    const largerY = Math.max(firstCoordinate[1], secondCoordinate[1]);
+    const possibleNextMoves = [];
+
+    if (smallerY > 0) {
+      const leftCoordinate = [x, smallerY - 1];
+      console.log(`left ${leftCoordinate}`)
+      if(!comparePreviousMove(enemyGameboard.movesMade, leftCoordinate)) {
+        possibleNextMoves.push(leftCoordinate);
+      }
+    }
+    
+    if (largerY < 9) {
+      const rightCoordinate = [x, largerY + 1];
+      console.log(`right ${rightCoordinate}`)
+      if(!comparePreviousMove(enemyGameboard.movesMade, rightCoordinate)) {
+        possibleNextMoves.push(rightCoordinate);
+      }
+    }
+
+    return possibleNextMoves;
+  }
+
   const player = {
     name,
     lastShot: null,
     lastCoordinates: null,
     hitCoordinates: [],
+    hitShipOrientation: null,
     takeTurn(enemyGameboard, coordinates) {
       if (isCPU) {
-        if (this.lastShot === null || this.lastShot === 'miss') {
-          const CPUCoordinates = getRandomCoordinates(enemyGameboard)
-          this.lastCoordinates = CPUCoordinates
-        } else {
-          const adjacentCoordinates = getAdjacentCoordinates(enemyGameboard, this.lastCoordinates);
-          if (adjacentCoordinates.length > 0) {
-            const randomIndex = Math.floor(Math.random() * adjacentCoordinates.length);
-            const nextTarget = adjacentCoordinates[randomIndex];
+        if (this.hitShipOrientation === null) { 
+          if (this.lastShot === null || this.lastShot === 'miss') { 
+            if (this.hitCoordinates.length === 1) { 
+              const adjacentCoordinates = getAdjacentCoordinates(enemyGameboard, this.hitCoordinates[0]); 
+            if (adjacentCoordinates.length > 0) { 
+              const randomIndex = Math.floor(Math.random() * adjacentCoordinates.length); 
+              const nextTarget = adjacentCoordinates[randomIndex];
+              this.lastCoordinates = nextTarget;
+            } else { 
+              const CPUCoordinates = getRandomCoordinates(enemyGameboard); 
+              this.lastCoordinates = CPUCoordinates;
+              this.hitCoordinates = []; 
+            }
+            } else { 
+              const CPUCoordinates = getRandomCoordinates(enemyGameboard)
+              this.lastCoordinates = CPUCoordinates
+            }
+          } else { 
+            const adjacentCoordinates = getAdjacentCoordinates(enemyGameboard, this.lastCoordinates); 
+            if (adjacentCoordinates.length > 0) { 
+              const randomIndex = Math.floor(Math.random() * adjacentCoordinates.length); 
+              const nextTarget = adjacentCoordinates[randomIndex];
+              this.lastCoordinates = nextTarget;
+            } else { 
+              const CPUCoordinates = getRandomCoordinates(enemyGameboard); 
+              this.lastCoordinates = CPUCoordinates;
+            }
+          }
+        } else if (this.hitShipOrientation === 'horizontal') { 
+          const horizontalMoves = tryHorizontal(enemyGameboard, this.hitCoordinates[this.hitCoordinates.length - 2], this.hitCoordinates[this.hitCoordinates.length - 1]);
+          if (horizontalMoves.length === 1) {
+            const nextTarget = horizontalMoves[0];
             this.lastCoordinates = nextTarget;
-          } else {
-            const CPUCoordinates = getRandomCoordinates(enemyGameboard);
+          } else if (horizontalMoves.length === 0) {
+            const CPUCoordinates = getRandomCoordinates(enemyGameboard); 
             this.lastCoordinates = CPUCoordinates;
+            this.hitShipOrientation = null;
+            this.hitCoordinates = [];
+          } else {
+            const randomIndex = Math.floor(Math.random() * 2);
+            const nextTarget = horizontalMoves[randomIndex];
+            this.lastCoordinates = nextTarget;
+          }
+        } else if (this.hitShipOrientation === 'vertical') { 
+          const verticalMoves = tryVertical(enemyGameboard, this.hitCoordinates[this.hitCoordinates.length - 2], this.hitCoordinates[this.hitCoordinates.length - 1]);
+          if (verticalMoves.length === 1) {
+            const nextTarget = verticalMoves[0];
+            this.lastCoordinates = nextTarget;
+          } else if (verticalMoves.length === 0) {
+            const CPUCoordinates = getRandomCoordinates(enemyGameboard); 
+            this.lastCoordinates = CPUCoordinates;
+            this.hitShipOrientation = null;
+            this.hitCoordinates = [];
+          } else {
+            const randomIndex = Math.floor(Math.random() * 2);
+            const nextTarget = verticalMoves[randomIndex];
+            this.lastCoordinates = nextTarget;
           }
         }
         const currentHit = enemyGameboard.receiveAttack(this.lastCoordinates)
         this.lastShot = currentHit;
+        if (this.lastShot === 'hit') {
+          this.hitCoordinates.push(this.lastCoordinates);
+          if (this.hitCoordinates.length === 2) {
+            const [hit1, hit2] = this.hitCoordinates;
+            if (hit1[0] === hit2[0]) {
+              this.hitShipOrientation = 'horizontal'
+            } else if (hit1[1] === hit2[1]) {
+              this.hitShipOrientation = 'vertical'
+            }
+          }
+        } 
         console.log(this.lastShot)
         console.log(this.lastCoordinates);
         console.log(this.hitCoordinates);
