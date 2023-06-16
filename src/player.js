@@ -66,7 +66,6 @@ function Player(name, isCPU) {
 
     if (smallerX > 0) {
       const upCoordinate = [smallerX - 1, y];
-      console.log(`up ${upCoordinate}`)
       if(!comparePreviousMove(enemyGameboard.movesMade, upCoordinate)) {
         possibleNextMoves.push(upCoordinate);
       }
@@ -74,7 +73,6 @@ function Player(name, isCPU) {
     
     if (largerX < 9) {
       const downCoordinate = [largerX + 1, y];
-      console.log(`down ${downCoordinate}`)
       if(!comparePreviousMove(enemyGameboard.movesMade, downCoordinate)) {
         possibleNextMoves.push(downCoordinate);
       }
@@ -91,7 +89,6 @@ function Player(name, isCPU) {
 
     if (smallerY > 0) {
       const leftCoordinate = [x, smallerY - 1];
-      console.log(`left ${leftCoordinate}`)
       if(!comparePreviousMove(enemyGameboard.movesMade, leftCoordinate)) {
         possibleNextMoves.push(leftCoordinate);
       }
@@ -99,7 +96,6 @@ function Player(name, isCPU) {
     
     if (largerY < 9) {
       const rightCoordinate = [x, largerY + 1];
-      console.log(`right ${rightCoordinate}`)
       if(!comparePreviousMove(enemyGameboard.movesMade, rightCoordinate)) {
         possibleNextMoves.push(rightCoordinate);
       }
@@ -188,9 +184,6 @@ function Player(name, isCPU) {
             }
           }
         } 
-        console.log(this.lastShot)
-        console.log(this.lastCoordinates);
-        console.log(this.hitCoordinates);
         hitOrMiss(this.lastCoordinates[0], this.lastCoordinates[1], isCPU)
       } else {
         enemyGameboard.receiveAttack(coordinates)
