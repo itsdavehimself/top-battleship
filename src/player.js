@@ -189,8 +189,15 @@ function Player(name, isCPU) {
         enemyGameboard.receiveAttack(coordinates)
         hitOrMiss(coordinates[0], coordinates[1])
       }
+    },
+    reset() {
+      this.lastShot = null;
+      this.lastCoordinates = null;
+      this.hitCoordinates = [];
+      this.hitShipOrientation = null;
     }
   }
+  
   return player
 }
 
