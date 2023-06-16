@@ -1,10 +1,239 @@
 body {
   margin: 0;
+  color: #1F271B;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.title {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 18px;
+}
+
+.main-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.instructions {
+  display: grid;
+  gap: 12px;
+}
+
+.place-ship-info {
+  display: grid;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
+
+.place-ship-info > p {
+  margin: 0;
+  padding: 0;
+}
+
+.ctrl-info {
+  display: grid;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+}
+
+.ctrl-info > p {
+  margin: 0;
+  padding: 0;
+}
+
+.play-again {
+  display: grid;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-again-btn {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.05rem;
+  transition: .2s;
+}
+
+.play-again-btn:hover {
+  cursor: pointer;
+  background-color: #dcebf1;
+}
+
+.play-again-btn:active {
+  transform: scale(.95);
+}
+
+.fleet-title {
+  display: grid;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.fleet-title > p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.3rem;
+  color: #1F271B;
 }
 
 .game-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+
+.user-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ships-remaining {
+  display: grid;
+  height: 300px;
+  justify-content: end;
+  align-items: center;
+  padding-top: 100px;
+  padding-right: 20px;
+  gap: 10px;
+}
+
+.ships-remaining#cpu-remaining {
+  display: grid;
+  height: 300px;
+  justify-content: start;
+  align-items: center;
+  padding-top: 100px;
+  padding-left: 20px;
+  gap: 10px;
+}
+
+.cpu-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.remaining-header {
+  display: grid;
+  align-self: end;
+}
+
+.remaining-icons {
+  display: grid;
+  gap: 4px;
+  grid-template-rows: repeat(5, 12px);
+  align-self: start;
+}
+
+.user-carrier-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-battleship-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-destroyer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-submarine-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-patrol-boat-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-carrier-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-battleship-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-destroyer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-submarine-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpu-patrol-boat-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-ship {
+  height: 10px;
+  width: 10px;
+  background-color: #386C82;
 }
 
 .user-board {
@@ -28,27 +257,38 @@ body {
 }
 
 .user-board-button {
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
   border: none;
+  border-radius: 4px;
+  justify-self: center;
+  align-self: center;
+  background-color: #dcebf1;
 }
 
 .cpu-board-button {
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
   border: none;
+  border-radius: 4px;
+  justify-self: center;
+  align-self: center;
 }
 
 .user-placed-ship {
-  background-color: blue;
+  background-color: #386C82;
+}
+
+.cpu-placed-ship.revealed {
+  background-color: #386C82;
 }
 
 .hit {
-  background-color: #e40000;
+  background-color: #F25F5C;
 }
 
 .miss {
-  background-color: black;
+  background-color: #1F271B;
 }
 
 .cpu-board-button:hover {
@@ -58,16 +298,20 @@ body {
 
 .hit:hover {
   cursor: not-allowed;
-  background-color: #e40000;
+  background-color: #F25F5C;
 }
 
 .miss:hover {
   cursor: not-allowed;
-  background-color: black;
+  background-color: #1F271B;
+}
+
+.user-board-button.miss:hover {
+  cursor: default;
 }
 
 .ship-placement {
-  background-color: aquamarine;
+  background-color: #2F475B;
 }
 
 .ship-placement:hover{
