@@ -73,6 +73,11 @@ function Gameboard() {
       return newShip
     }
 
+    const getSunkShips = () => {
+      const sunkShips = placedShips.filter(ship => ship.sunk === true);
+      return sunkShips.map(ship => ship.shipType);
+    }
+
     const receiveAttack = (coordinates) => {
       if (!movesMade.find(moves => moves.toString() === coordinates.toString())) {
         if (board[coordinates[0]][coordinates[1]].getValue() !== 0) {
@@ -81,6 +86,7 @@ function Gameboard() {
           hitShip.hit();
           movesMade.push(coordinates);
           successfulHits.push(coordinates);
+          getSunkShips();
           checkIfAllSunk();
           return 'hit';
         }
@@ -91,7 +97,7 @@ function Gameboard() {
       return undefined
     };
 
-  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade, placedShips, reset}
+  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade, placedShips, reset, getSunkShips}
 }
 
 export default Gameboard;
