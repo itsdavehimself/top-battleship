@@ -2,6 +2,22 @@ const userDiv = document.querySelector('.user-board');
 const CPUDiv = document.querySelector('.cpu-board');
 const placeShipDiv = document.querySelector('.place-ship-info');
 const ctrlBtnDiv = document.querySelector('.ctrl-info');
+const playAgainDiv = document.querySelector('.play-again');
+
+function displayWinner(winner) {
+  placeShipDiv.replaceChildren();
+  const winnerMsg = document.createElement('p');
+  if (winner === 'user') {
+    winnerMsg.textContent = 'Congratulations, you win!'
+  } else {
+    winnerMsg.textContent = 'You lost all your ships. Game over.'
+  }
+  placeShipDiv.appendChild(winnerMsg);
+  const playAgainBtn = document.createElement('button');
+  playAgainBtn.classList.add('play-again-btn');
+  playAgainBtn.textContent = 'Play again?';
+  playAgainDiv.appendChild(playAgainBtn);
+}
 
 function renderBoards(userBoard, cpuBoard) {
   placeShipDiv.replaceChildren();
@@ -181,6 +197,7 @@ function hitOrMiss(coordinateX, coordinateY, isCPU = false) {
 function placeShipInstructions(ship) {
   placeShipDiv.replaceChildren();
   ctrlBtnDiv.replaceChildren();
+  playAgainDiv.replaceChildren();
   const ctrlInfo = document.createElement('p');
   ctrlInfo.textContent = 'Hold ctrl to rotate';
   ctrlBtnDiv.appendChild(ctrlInfo);
@@ -200,4 +217,4 @@ function placeShipInstructions(ship) {
 }
 
 
-export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions }
+export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions, displayWinner }
