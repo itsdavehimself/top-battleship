@@ -64,23 +64,25 @@ function Gameboard() {
       return newShip
     }
 
-  const receiveAttack = (coordinates) => {
-    if (!movesMade.find(moves => moves.toString() === coordinates.toString())) {
-      if (board[coordinates[0]][coordinates[1]].getValue() !== 0) {
-        const shipType = board[coordinates[0]][coordinates[1]].getValue()
-        const hitShip = placedShips.find(ship => ship.shipType === shipType)
-        hitShip.hit();
-        movesMade.push(coordinates);
-        successfulHits.push(coordinates);
-        checkIfAllSunk();
-      } else {
+    const receiveAttack = (coordinates) => {
+      if (!movesMade.find(moves => moves.toString() === coordinates.toString())) {
+        if (board[coordinates[0]][coordinates[1]].getValue() !== 0) {
+          const shipType = board[coordinates[0]][coordinates[1]].getValue();
+          const hitShip = placedShips.find(ship => ship.shipType === shipType);
+          hitShip.hit();
+          movesMade.push(coordinates);
+          successfulHits.push(coordinates);
+          checkIfAllSunk();
+          return 'hit';
+        }
         movesMade.push(coordinates);
         missedShots.push(coordinates);
-      };
-    }
-  }
+        return 'miss';
+      }
+      return undefined
+    };
 
-  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade }
+  return { getBoard, placeShip, receiveAttack, reportSunk, movesMade, placedShips }
 }
 
 export default Gameboard;
