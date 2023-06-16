@@ -1,6 +1,6 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
-import { renderBoards, clearBoard, placementBoardRender } from "./DOM-gameboards";
+import { renderBoards, clearBoard, placementBoardRender, placeShipInstructions } from "./DOM-gameboards";
 
 function Game() {
   const user = Player('Player One', false);
@@ -10,7 +10,7 @@ function Game() {
   let isGameOver = false;
   let isCtrlPressed = false;
 
-  
+
   const updateBoard = () => {
     clearBoard();
     renderBoards(userBoard, cpuBoard);
@@ -138,6 +138,7 @@ function Game() {
       return userCarrierPlacer();
     }
     shipPlacementBoard(4, isCtrlPressed);
+    placeShipInstructions(4);
     return true;
   }
 
@@ -149,6 +150,7 @@ function Game() {
       return userBattleshipPlacer();
     }
     shipPlacementBoard(3, isCtrlPressed);
+    placeShipInstructions(3);
     return true;
   }
 
@@ -160,6 +162,7 @@ function Game() {
       return userDestroyerPlacer();
     }
     shipPlacementBoard(3, isCtrlPressed);
+    placeShipInstructions(2);
     return true;
   }
 
@@ -171,6 +174,7 @@ function Game() {
       return userSubmarinePlacer();
     }
     shipPlacementBoard(2, isCtrlPressed);
+    placeShipInstructions(1);
     return true;
   }
 
@@ -205,6 +209,7 @@ function Game() {
   }
 
   shipPlacementBoard(5, isCtrlPressed);
+  placeShipInstructions(5);
 
   return { placeShipPhase }
 }
