@@ -1,6 +1,6 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
-import { renderBoards, clearBoard, placementBoardRender, placeShipInstructions } from "./DOM-gameboards";
+import { renderBoards, clearBoard, placementBoardRender, placeShipInstructions, displayWinner } from "./DOM-gameboards";
 
 function Game() {
   const user = Player('Player One', false);
@@ -9,7 +9,7 @@ function Game() {
   const cpuBoard = Gameboard();
   let isGameOver = false;
   let isCtrlPressed = false;
-
+  let winner = null;
 
   const updateBoard = () => {
     clearBoard();
@@ -100,7 +100,12 @@ function Game() {
     const userInput = await getUserMove();
     user.takeTurn(cpuBoard, userInput);
     cpu.takeTurn(userBoard)
-    if (cpuBoard.reportSunk() || userBoard.reportSunk()) {
+    if (cpuBoard.reportSunk()) {
+      winner = 'user';
+      isGameOver = true;
+    }
+    if (userBoard.reportSunk()) {
+      winner = 'cpu';
       isGameOver = true;
     }
   }
@@ -189,11 +194,26 @@ function Game() {
     return true;
   }
 
+  const resetGame = () => {
+    isGameOver = false;
+    isCtrlPressed = false;
+    winner = null;
+    userBoard.reset();
+    cpuBoard.reset();
+    user.reset();
+    cpu.reset();
+    shipPlacementBoard(5, isCtrlPressed);
+    placeShipInstructions(5);
+    placeShipPhase();
+  };
+
   const runGame = async () => {
     while(!isGameOver) {
       await gameTurn();
     }
-    console.log('game over');
+    displayWinner(winner);
+    const playAgainBtn = document.querySelector('.play-again-btn');
+    playAgainBtn.addEventListener('click', resetGame)
   }
 
   async function placeShipPhase() {
