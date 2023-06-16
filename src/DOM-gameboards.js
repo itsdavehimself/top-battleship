@@ -1,7 +1,15 @@
 const userDiv = document.querySelector('.user-board');
 const CPUDiv = document.querySelector('.cpu-board');
+const placeShipDiv = document.querySelector('.place-ship-info');
+const ctrlBtnDiv = document.querySelector('.ctrl-info');
 
 function renderBoards(userBoard, cpuBoard) {
+  placeShipDiv.replaceChildren();
+  ctrlBtnDiv.replaceChildren();
+  const attackInfo = document.createElement('p');
+  attackInfo.textContent = 'Click on the enemy board to attack'
+  placeShipDiv.appendChild(attackInfo);
+
   userBoard.getBoard().forEach((row, rowIndex) => {
     row.forEach((cell, cellIndex) => {
       const cellButton = document.createElement('button');
@@ -170,5 +178,26 @@ function hitOrMiss(coordinateX, coordinateY, isCPU = false) {
   }
 }
 
+function placeShipInstructions(ship) {
+  placeShipDiv.replaceChildren();
+  ctrlBtnDiv.replaceChildren();
+  const ctrlInfo = document.createElement('p');
+  ctrlInfo.textContent = 'Hold ctrl to rotate';
+  ctrlBtnDiv.appendChild(ctrlInfo);
+  const placeShipText = document.createElement('p');
+  if (ship === 5) {
+    placeShipText.textContent = 'Click on your board to place your carrier';
+  } else if (ship === 4) {
+    placeShipText.textContent = 'Click on your board to place your battleship';
+  } else if (ship === 3) {
+    placeShipText.textContent = 'Click on your board to place your destroyer';
+  } else if (ship === 2) {
+    placeShipText.textContent = 'Click on your board to place your submarine';
+  } else {
+    placeShipText.textContent = 'Click on your board to place your patrol boat';
+  }
+  placeShipDiv.appendChild(placeShipText);
+}
 
-export { renderBoards, clearBoard, hitOrMiss, placementBoardRender }
+
+export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions }
