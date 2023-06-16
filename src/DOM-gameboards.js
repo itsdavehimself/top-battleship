@@ -50,9 +50,6 @@ function renderBoards(userBoard, cpuBoard) {
       cellButton.dataset.cellRow = `${rowIndex}`;
       cellButton.dataset.cellColumn = `${cellIndex}`;
       cellButton.dataset.cellValue = `${cellValue}`;
-      if (cell.getValue() > 0) {
-        cellButton.classList.add('cpu-placed-ship');
-      }
       CPUDiv.appendChild(cellButton);
     })
   })
@@ -215,6 +212,5 @@ function placeShipInstructions(ship) {
   }
   placeShipDiv.appendChild(placeShipText);
 }
-
 
 export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions, displayWinner }
