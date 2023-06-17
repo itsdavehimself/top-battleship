@@ -1,6 +1,6 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
-import { renderBoards, clearBoard, placementBoardRender, placeShipInstructions, displayWinner } from "./DOM-gameboards";
+import { renderBoards, clearBoard, placementBoardRender, placeShipInstructions, displayWinner, shipIndicator } from "./DOM-gameboards";
 
 function Game() {
   const user = Player('Player One', false);
@@ -99,7 +99,11 @@ function Game() {
   async function gameTurn() {
     const userInput = await getUserMove();
     user.takeTurn(cpuBoard, userInput);
+    const cpuSunkShips = cpuBoard.getSunkShips();
+    shipIndicator(cpuSunkShips, 'cpu');
     cpu.takeTurn(userBoard)
+    const userSunkShips = userBoard.getSunkShips();
+    shipIndicator(userSunkShips, 'user');
     if (cpuBoard.reportSunk()) {
       winner = 'user';
       isGameOver = true;
@@ -202,6 +206,8 @@ function Game() {
     cpuBoard.reset();
     user.reset();
     cpu.reset();
+    shipIndicator(cpuBoard.getSunkShips(), 'cpu');
+    shipIndicator(userBoard.getSunkShips(), 'user');
     shipPlacementBoard(5, isCtrlPressed);
     placeShipInstructions(5);
     placeShipPhase();

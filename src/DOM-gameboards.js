@@ -3,6 +3,7 @@ const CPUDiv = document.querySelector('.cpu-board');
 const placeShipDiv = document.querySelector('.place-ship-info');
 const ctrlBtnDiv = document.querySelector('.ctrl-info');
 const playAgainDiv = document.querySelector('.play-again');
+const enemyShips = document.querySelector('.cpu-placed-ships');
 
 function displayWinner(winner) {
   placeShipDiv.replaceChildren();
@@ -50,6 +51,9 @@ function renderBoards(userBoard, cpuBoard) {
       cellButton.dataset.cellRow = `${rowIndex}`;
       cellButton.dataset.cellColumn = `${cellIndex}`;
       cellButton.dataset.cellValue = `${cellValue}`;
+      if (cell.getValue() > 0) {
+        cellButton.classList.add('cpu-placed-ship');
+      }
       CPUDiv.appendChild(cellButton);
     })
   })
@@ -213,4 +217,25 @@ function placeShipInstructions(ship) {
   placeShipDiv.appendChild(placeShipText);
 }
 
-export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions, displayWinner }
+function shipIndicator(sunkShipsArr, player) {
+  const containerClasses = {
+    1: `${player}-carrier-container`,
+    2: `${player}-battleship-container`,
+    3: `${player}-destroyer-container`,
+    4: `${player}-submarine-container`,
+    5: `${player}-patrol-boat-container`,
+  };
+
+  Object.entries(containerClasses).forEach(([shipNum, containerClass]) => {
+    const container = document.getElementsByClassName(containerClass)[0];
+    const ships = Array.from(container.getElementsByClassName('user-ship'));
+    if (sunkShipsArr.includes(parseInt(shipNum, 10))) {
+      ships.forEach((ship) => ship.classList.add('sunk'));
+    } else {
+      ships.forEach((ship) => ship.classList.remove('sunk'));
+    }
+  });
+}
+
+
+export { renderBoards, clearBoard, hitOrMiss, placementBoardRender, placeShipInstructions, displayWinner, shipIndicator }
