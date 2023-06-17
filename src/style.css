@@ -1,6 +1,49 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Regular.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Thin.ttf);
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Medium.ttf);
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Light.ttf);
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Bold.ttf);
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./Roboto-Black.ttf);
+  font-weight: 900;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   color: #1F271B;
+  font-family: 'Roboto';
 }
 
 h1 {
@@ -150,78 +193,15 @@ h1 {
   align-self: start;
 }
 
-.user-carrier-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.user-battleship-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.user-destroyer-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.user-submarine-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.user-patrol-boat-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.cpu-carrier-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.cpu-battleship-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.cpu-destroyer-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
-.cpu-submarine-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  justify-content: center;
-  align-items: center;
-}
-
+.user-carrier-container,
+.user-battleship-container,
+.user-destroyer-container,
+.user-submarine-container,
+.user-patrol-boat-container,
+.cpu-carrier-container,
+.cpu-battleship-container,
+.cpu-destroyer-container,
+.cpu-submarine-container,
 .cpu-patrol-boat-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -234,6 +214,12 @@ h1 {
   height: 10px;
   width: 10px;
   background-color: #386C82;
+}
+
+.user-ship.sunk {
+  height: 10px;
+  width: 10px;
+  background-color: #dcebf1;
 }
 
 .user-board {
